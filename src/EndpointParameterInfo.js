@@ -1,5 +1,17 @@
 import React from 'react';
 
+/* 
+Registration complete
+Your API key is: 60b5ca9165374ce1987da329db6a4e4c
+
+For help getting started please look at our getting started guide.
+
+We post API status updates and other news on our Twitter feed, so please follow us there if that's important to you:
+
+*/
+
+
+
 export const countryCodes = {
     countries : {
 Argentina:
