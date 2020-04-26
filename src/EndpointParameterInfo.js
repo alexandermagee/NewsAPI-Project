@@ -126,7 +126,11 @@ Venuzuela:
 get list () {
     return (
         Object.keys(this.countries).map((country,i) => {
-           return <option value={country} key={i} >{country}</option>
+            return(
+            (country === "United Kingdom") ?
+            <option value={country} key={i} selected="selected" >{country}</option> :
+            <option value={country} key={i}>{country}</option>
+            )
         }
     )
     )

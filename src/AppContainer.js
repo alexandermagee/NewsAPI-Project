@@ -2,6 +2,7 @@ import React from 'react';
 import {CountrySelector} from './CountrySelector';
 import {DisplayResults} from './DisplayResults';
 import {CategorySelector} from './CategorySelector';
+import {KeywordSearch} from './KeywordSearch';
 
 const apikey = "apiKey=60b5ca9165374ce1987da329db6a4e4c";
 
@@ -13,11 +14,13 @@ export class AppContainer extends React.Component {
         super(props);
         this.state = {
             countries: [],
-            activeCountry: "",
+            activeCountry: "United Kingdom",
             activeCountryCode: "gb",
             topResults : [],
             activeCategory : "",
-            loadedStatus: "not loaded"
+            loadedStatus: "not loaded",
+            userSearchEncoded : "",
+            userSearch: ""
         }
     }
 
@@ -43,19 +46,24 @@ export class AppContainer extends React.Component {
         this.setState({
             activeCategory : selectedCategory
         })
+    }
 
-        console.log(this.state.activeCategory);
+    updateUserSearch = (newSearch,newSearchEncoded) => {
+        this.setState({
+            userSearch: newSearch,
+            userSearchEncoded: newSearchEncoded
+        })
+        console.log(newSearch,newSearchEncoded)
     }
 
     getData = () => {
-        /*const topNewsUrl= ('http://newsapi.org/v2/top-headlines?' +
-        'country=gb&category=sports&' +
-        apikey); */
         const searchTopNews = (`http://newsapi.org/v2/top-headlines?country=${this.state.activeCountryCode}&category=${this.state.activeCategory}&${apikey}`)
          /*const allNewsUrl= ('http://newsapi.org/v2/everything?' +
         'country=gb&' +
         apikey); */
-        fetch(searchTopNews).then(response => {
+        const searchAllNews = (`http://newsapi.org/v2/everything?q=${this.state.userSearchEncoded}&${apikey}`);
+        fetch(searchTopNews)
+        .then(response => {
             return response.json();
         }).then(result => {
             let rawData = result.articles;
@@ -90,7 +98,7 @@ export class AppContainer extends React.Component {
     render(){
         return (
         <div>
-        <p>{this.state.loadedStatus}</p>
+        <h1>Search for News Articles Across the World</h1>
             
         <CountrySelector 
         getData={this.getData}
@@ -106,11 +114,21 @@ export class AppContainer extends React.Component {
         chooseActiveCategory={this.chooseActiveCategory}
         />
 
+        <KeywordSearch 
+        userSearch={this.state.userSearch}
+        updateUserSearch={this.updateUserSearch}
+        />
+
+        {(this.state.loadedStatus === "loaded") ?
+            (<h4>{this.state.activeCategory} Results in {this.state.activeCountry}</h4>) :
+         (<span></span>) }
 
         <DisplayResults 
         topResults={this.state.topResults}
         loadedStatus={this.state.loadedStatus}
+        userSearch={this.state.userSearch}
         /> 
+
         </div>
         );
     }

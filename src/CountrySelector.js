@@ -28,7 +28,6 @@ export class CountrySelector extends React.Component {
             <select id="countries" onChange={this.handleChange} > 
                 {this.props.countries}
             </select>
-            <p>{this.props.activeCountryCode}</p>
             </div>
         )
     }
