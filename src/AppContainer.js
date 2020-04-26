@@ -3,10 +3,9 @@ import {CountrySelector} from './CountrySelector';
 import {DisplayResults} from './DisplayResults';
 import {CategorySelector} from './CategorySelector';
 import {KeywordSearch} from './KeywordSearch';
+import {SelectSearchType} from './SelectSearchType';
 
 const apikey = "apiKey=60b5ca9165374ce1987da329db6a4e4c";
-
-let retrievedRestults;
 
 export class AppContainer extends React.Component {
 
@@ -20,8 +19,15 @@ export class AppContainer extends React.Component {
             activeCategory : "",
             loadedStatus: "not loaded",
             userSearchEncoded : "",
-            userSearch: ""
+            userSearch: "",
+            activeSearchType: "top results"
         }
+    }
+
+    chooseActiveSearchType = selectedSearch => {
+        this.setState({
+            activeSearchType: selectedSearch
+        })
     }
 
     retrieveCountries = list => {
@@ -58,11 +64,11 @@ export class AppContainer extends React.Component {
 
     getData = () => {
         const searchTopNews = (`http://newsapi.org/v2/top-headlines?country=${this.state.activeCountryCode}&category=${this.state.activeCategory}&${apikey}`)
-         /*const allNewsUrl= ('http://newsapi.org/v2/everything?' +
-        'country=gb&' +
-        apikey); */
-        const searchAllNews = (`http://newsapi.org/v2/everything?q=${this.state.userSearchEncoded}&${apikey}`);
-        fetch(searchTopNews)
+        const searchAllNews = (`http://newsapi.org/v2/everything?qInTitle=${this.state.userSearchEncoded}&${apikey}`);
+        let currentSearch = null;
+        (this.state.activeSearchType === "top results") ? currentSearch=searchTopNews : currentSearch=searchAllNews;
+        if(currentSearch){
+        fetch(currentSearch)
         .then(response => {
             return response.json();
         }).then(result => {
@@ -88,9 +94,10 @@ export class AppContainer extends React.Component {
                 loadedStatus : "loaded",
                 topResults : dataToDisplay
             });
-            console.log(this.state.topResults);
+            console.log(currentSearch+this.state.topResults);
             }
-        ) 
+        )
+        } 
         
     }      
 
@@ -99,7 +106,11 @@ export class AppContainer extends React.Component {
         return (
         <div>
         <h1>Search for News Articles Across the World</h1>
-            
+
+        <SelectSearchType 
+        chooseActiveSearchType={this.chooseActiveSearchType}
+        />
+
         <CountrySelector 
         getData={this.getData}
         countries={this.state.countries}
