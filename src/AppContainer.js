@@ -1,6 +1,7 @@
 import React from 'react';
 import {CountrySelector} from './CountrySelector';
 import {DisplayResults} from './DisplayResults';
+import {CategorySelector} from './CategorySelector';
 
 const apikey = "apiKey=60b5ca9165374ce1987da329db6a4e4c";
 
@@ -14,8 +15,9 @@ export class AppContainer extends React.Component {
             countries: [],
             activeCountry: "",
             activeCountryCode: "gb",
-            nothingLoaded: true,
-            topResults : []
+            topResults : [],
+            activeCategory : "",
+            loadedStatus: "not loaded"
         }
     }
 
@@ -32,11 +34,24 @@ export class AppContainer extends React.Component {
         })
     }
 
+    chooseActiveCategory = selectedCategory => {
+        selectedCategory === "All" ? 
+        this.setState({
+            activeCategory : ""
+        })
+        :
+        this.setState({
+            activeCategory : selectedCategory
+        })
+
+        console.log(this.state.activeCategory);
+    }
+
     getData = () => {
         /*const topNewsUrl= ('http://newsapi.org/v2/top-headlines?' +
         'country=gb&category=sports&' +
         apikey); */
-        const searchTopNews = (`http://newsapi.org/v2/top-headlines?country=${this.state.activeCountryCode}&${apikey}`)
+        const searchTopNews = (`http://newsapi.org/v2/top-headlines?country=${this.state.activeCountryCode}&category=${this.state.activeCategory}&${apikey}`)
          /*const allNewsUrl= ('http://newsapi.org/v2/everything?' +
         'country=gb&' +
         apikey); */
@@ -62,7 +77,7 @@ export class AppContainer extends React.Component {
             }
 
             this.setState({
-                nothingLoaded : false,
+                loadedStatus : "loaded",
                 topResults : dataToDisplay
             });
             console.log(this.state.topResults);
@@ -75,6 +90,7 @@ export class AppContainer extends React.Component {
     render(){
         return (
         <div>
+        <p>{this.state.loadedStatus}</p>
             
         <CountrySelector 
         getData={this.getData}
@@ -85,9 +101,15 @@ export class AppContainer extends React.Component {
         activeCountryCode={this.state.activeCountryCode}
         />
 
+        <CategorySelector 
+        activeCategory={this.state.activeCategory}
+        chooseActiveCategory={this.chooseActiveCategory}
+        />
+
+
         <DisplayResults 
         topResults={this.state.topResults}
-        nothingloaded={this.state.nothingLoaded}
+        loadedStatus={this.state.loadedStatus}
         /> 
         </div>
         );

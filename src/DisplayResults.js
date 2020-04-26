@@ -1,7 +1,16 @@
 import React from 'react';
+import './DisplayResults.css';
 
 export class DisplayResults extends React.Component {
 
+    componentDidMount() {
+        console.log(this.props.loadedStatus)
+    }
+
+    componentDidUpdate() {
+        console.log(this.props.loadedStatus);
+        console.log(this.props.topResults);
+    }
 
     render() {
        /* let rawData = this.props.topResults;
@@ -17,23 +26,37 @@ export class DisplayResults extends React.Component {
                 )
             this.displayedInformation.push(extractedInformation);
         } */
-        {if(this.props.nothingLoaded){
+        if(this.props.loadedStatus === "not loaded"){
             return(
-                <p>Please select a country</p>
+                <section class="testCardContainer">
+                <article class="testCard">
+                    <h3>Lorum Ipsum</h3>
+                    <p class="testCardAuthor">By Anon</p>
+                    <p><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</a> </p>
+                </article>
+                </section>
+                
             )
         }else{
             return (
+                <section class="testCardContainer">{
             (this.props.topResults).map(item => {
                 return(
-                <article>
+                <article class="testCard">
                 <h3>{item[0]}</h3>
-                <p>By {item[1]}</p>
+                {item[1] === null ?
+                <p class="testCardAuthor">By Anon</p> :
+                <p class="testCardAuthor">By {item[1]}</p>
+                }
+                {/*<p>By {item[1]}</p>*/}
                 <p><a href={item[4]}>{item[2]}</a></p>
                 <p>{item[5]}</p>
                 </article>
                 )
             })
+
+            }</section>
             )
-        }}
+        }
     }
 }

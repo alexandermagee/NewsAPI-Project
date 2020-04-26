@@ -1,0 +1,17 @@
+.categoryContainer {
+    border: 2px solid black; 
+}
+
+
+.categoryContainer div {
+    display: inline;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+/*
+.categoryContainer .active{
+    background: blue;
+    font-weight: bolder;
+    color: white;
+} */

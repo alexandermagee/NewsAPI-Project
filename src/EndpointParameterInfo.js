@@ -133,4 +133,4 @@ get list () {
 }
 }
 
-//export const category 
+export const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
