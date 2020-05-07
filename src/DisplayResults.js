@@ -28,6 +28,8 @@ export class DisplayResults extends React.Component {
         } */
         if(this.props.loadedStatus === "not loaded"){
             return(
+                <h3>Please select your search criteria above</h3>
+                /*
                 <section class="testCardContainer">
                 <article class="testCard">
                     <h3>Lorum Ipsum</h3>
@@ -35,7 +37,7 @@ export class DisplayResults extends React.Component {
                     <p><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</a> </p>
                 </article>
                 </section>
-                
+                */
             )
         }else{
             return (
@@ -44,13 +46,13 @@ export class DisplayResults extends React.Component {
                 return(
                 <article class="testCard">
                 <h3>{item[0]}</h3>
-                {item[1] === null ?
+                {(item[1] === null || item[1] === "") ?
                 <p class="testCardAuthor">By Anon</p> :
                 <p class="testCardAuthor">By {item[1]}</p>
                 }
                 {/*<p>By {item[1]}</p>*/}
                 <p><a href={item[4]}>{item[2]}</a></p>
-                <p>{item[5]}</p>
+                <p>{item[3]}</p>
                 </article>
                 )
             })

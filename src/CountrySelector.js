@@ -6,7 +6,7 @@ const apikey = "apiKey=60b5ca9165374ce1987da329db6a4e4c";
 export class CountrySelector extends React.Component {
 
     componentDidMount() {
-        this.props.retrieveCountries(countryCodes.list)
+        this.props.retrieveCountries(countryCodes.list);
     }
 
     handleChange = e => {
@@ -21,8 +21,8 @@ export class CountrySelector extends React.Component {
 
     render () {
         return (
-            <div>
-            <button onClick={this.handleClick}> Search for news articles</button>
+            <div className={`${this.props.topNewsSearchDisplay}`}>
+           {/* <button onClick={this.handleClick}> Search for news articles</button> */}
             <br></br>
             <label for="countries">Choose a country:</label>
             <select id="countries" onChange={this.handleChange} > 

@@ -10,10 +10,9 @@ export class KeywordSearch extends React.Component {
 
     render(){
         return(
-            <div>
-            <label for="keywordSearch">Results containing the word/s</label>
+            <div className={`${this.props.everythingSearchDisplay}`}>
+            <label for="keywordSearch">Narrow by word or phrase</label>
             <input type="text" name="keywordSearch" onChange={this.handleChange} value={this.props.userSearch} />
-            <button>Search</button>
             </div>
         )
     }

@@ -20,13 +20,26 @@ export class AppContainer extends React.Component {
             loadedStatus: "not loaded",
             userSearchEncoded : "",
             userSearch: "",
-            activeSearchType: "top results"
+            activeSearchType: "top results",
+            everythingSearchDisplay: "hidden",
+            topNewsSearchDisplay: "hidden",
         }
     }
 
     chooseActiveSearchType = selectedSearch => {
+        /*this.setState({
+            activeSearchType: selectedSearch,
+        }) */
+        (selectedSearch === "everything") ? 
         this.setState({
-            activeSearchType: selectedSearch
+            activeSearchType: selectedSearch,
+            everythingSearchDisplay: "notHidden",
+            topNewsSearchDisplay: "hidden"
+        }) :
+        this.setState({
+            activeSearchType: selectedSearch,
+            everythingSearchDisplay: "hidden",
+            topNewsSearchDisplay: "notHidden"
         })
     }
 
@@ -109,6 +122,7 @@ export class AppContainer extends React.Component {
 
         <SelectSearchType 
         chooseActiveSearchType={this.chooseActiveSearchType}
+        getData={this.getData}
         />
 
         <CountrySelector 
@@ -118,21 +132,24 @@ export class AppContainer extends React.Component {
         chooseActiveCountry={this.chooseActiveCountry}
         activeCountry={this.state.activeCountry}
         activeCountryCode={this.state.activeCountryCode}
+        topNewsSearchDisplay={this.state.topNewsSearchDisplay}
         />
 
         <CategorySelector 
         activeCategory={this.state.activeCategory}
         chooseActiveCategory={this.chooseActiveCategory}
+        topNewsSearchDisplay={this.state.topNewsSearchDisplay}
         />
 
         <KeywordSearch 
         userSearch={this.state.userSearch}
         updateUserSearch={this.updateUserSearch}
+        everythingSearchDisplay={this.state.everythingSearchDisplay}
         />
 
-        {(this.state.loadedStatus === "loaded") ?
+        {(this.state.loadedStatus === "loaded" && this.state.activeSearchType === "top results") ?
             (<h4>{this.state.activeCategory} Results in {this.state.activeCountry}</h4>) :
-         (<span></span>) }
+         (this.state.loadedStatus === "loaded" && this.state.activeSearchType === "everything" ? <h4>Top Results Containing {this.state.userSearch}</h4> : null)}
 
         <DisplayResults 
         topResults={this.state.topResults}

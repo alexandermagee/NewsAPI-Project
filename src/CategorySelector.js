@@ -10,7 +10,7 @@ export class CategorySelector extends React.Component {
 
     render(){
         return(
-            <form className="categoryContainer">
+            <form className={`${this.props.topNewsSearchDisplay} categoryContainer`}>
                         <div>
                         <label>All</label>
                         <input type="radio" name="radio" onClick={this.handleClick} value="All" />

@@ -138,3 +138,5 @@ get list () {
 }
 
 export const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+
+export const sortParameters = ["publishedAt","relevancy","popularity","publishedAt"]
