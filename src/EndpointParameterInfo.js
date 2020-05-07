@@ -137,6 +137,14 @@ get list () {
 }
 }
 
-export const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"]
+export const categories = ["business", "entertainment", "general", "health", "science", "sports", "technology"];
 
-export const sortParameters = ["publishedAt","relevancy","popularity","publishedAt"]
+export const sortParameters = { 
+    relevancy : "Relevancy",
+    publishedAt : "Date Published", 
+    popularity: "Popularity" 
+}
+
+export const pageSizeIntervals = [20,40,60,80,100];
+
+export const languages = ["ar","de","en","es","fr","he","it","nl","no","pt","ru","se","ud","zh"];

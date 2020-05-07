@@ -4,6 +4,7 @@ import {DisplayResults} from './DisplayResults';
 import {CategorySelector} from './CategorySelector';
 import {KeywordSearch} from './KeywordSearch';
 import {SelectSearchType} from './SelectSearchType';
+import {ResultsParameters} from './ResultsParameters';
 
 const apikey = "apiKey=60b5ca9165374ce1987da329db6a4e4c";
 
@@ -20,6 +21,8 @@ export class AppContainer extends React.Component {
             loadedStatus: "not loaded",
             userSearchEncoded : "",
             userSearch: "",
+            sortBy: "publishedAt",
+            pageSize: 50,
             activeSearchType: "top results",
             everythingSearchDisplay: "hidden",
             topNewsSearchDisplay: "hidden",
@@ -75,9 +78,15 @@ export class AppContainer extends React.Component {
         console.log(newSearch,newSearchEncoded)
     }
 
+    updateResultsParameters = (newParameterType,newParameterValue) => {
+        this.setState({
+        [newParameterType]: newParameterValue
+        })
+    }
+
     getData = () => {
         const searchTopNews = (`http://newsapi.org/v2/top-headlines?country=${this.state.activeCountryCode}&category=${this.state.activeCategory}&${apikey}`)
-        const searchAllNews = (`http://newsapi.org/v2/everything?qInTitle=${this.state.userSearchEncoded}&${apikey}`);
+        const searchAllNews = (`http://newsapi.org/v2/everything?qInTitle=${this.state.userSearchEncoded}&pageSize=${this.state.pageSize}&sortBy=${this.state.sortBy}&${apikey}`);
         let currentSearch = null;
         (this.state.activeSearchType === "top results") ? currentSearch=searchTopNews : currentSearch=searchAllNews;
         if(currentSearch){
@@ -145,6 +154,11 @@ export class AppContainer extends React.Component {
         userSearch={this.state.userSearch}
         updateUserSearch={this.updateUserSearch}
         everythingSearchDisplay={this.state.everythingSearchDisplay}
+        />
+
+        <ResultsParameters 
+            updateResultsParameters={this.updateResultsParameters}
+            everythingSearchDisplay={this.state.everythingSearchDisplay}
         />
 
         {(this.state.loadedStatus === "loaded" && this.state.activeSearchType === "top results") ?
