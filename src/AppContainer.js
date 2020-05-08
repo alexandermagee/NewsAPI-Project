@@ -31,9 +31,7 @@ export class AppContainer extends React.Component {
     }
 
     chooseActiveSearchType = selectedSearch => {
-        /*this.setState({
-            activeSearchType: selectedSearch,
-        }) */
+       
         (selectedSearch === "everything") ? 
         this.setState({
             activeSearchType: selectedSearch,

@@ -38,6 +38,8 @@ export class ResultsParameters extends React.Component {
                     <select id="language" onChange={this.handleChange} >
                         {languages.map((language,i) => {
                             return (
+                                (language === "en") ? 
+                                <option value={language} id={i} selected="selected">{language}</option> :
                                 <option value={language} id={i}>{language}</option>
                             )
                         })}
