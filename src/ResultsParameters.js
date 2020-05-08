@@ -1,19 +1,18 @@
 import React from 'react';
 import {sortParameters,pageSizeIntervals,languages} from './EndpointParameterInfo';
 
-export class ResultsParameters extends React.Component {
+export const ResultsParameters = props => {
 
-    handleChange = e => {
-        this.props.updateResultsParameters(e.target.id,e.target.value)
+    const handleChange = e => {
+        props.updateResultsParameters(e.target.id,e.target.value)
     }
 
-    render() {
         return (
             <div>
                 <br></br>
                 <section>
                     <label for="pageSize">Number of results to display:</label>
-                    <select id="pageSize" onChange={this.handleChange} > 
+                    <select id="pageSize" onChange={handleChange} > 
                         {pageSizeIntervals.map((int,i) =>{
                             return(
                                 <option value={int} id={i}>{int}</option>
@@ -22,9 +21,9 @@ export class ResultsParameters extends React.Component {
                     </select>
                 </section>
                 <br></br>
-                <section className={`${this.props.everythingSearchDisplay}`}>
+                <section className={`${props.everythingSearchDisplay}`}>
                     <label for="sortBy">Sort by:</label>
-                    <select id="sortBy" onChange={this.handleChange} > 
+                    <select id="sortBy" onChange={handleChange} > 
                         {Object.keys(sortParameters).map((int,i) =>{
                             return(
                             <option value={int} id={i}>{sortParameters[int]}</option>
@@ -33,9 +32,9 @@ export class ResultsParameters extends React.Component {
                     </select>
                 </section>
                 <br></br>
-                <section className={`${this.props.everythingSearchDisplay}`}>
+                <section className={`${props.everythingSearchDisplay}`}>
                     <label for="language">Show results in:</label>
-                    <select id="language" onChange={this.handleChange} >
+                    <select id="language" onChange={handleChange} >
                         {languages.map((language,i) => {
                             return (
                                 (language === "en") ? 
@@ -49,4 +48,4 @@ export class ResultsParameters extends React.Component {
             </div>
         )
     }
-}
+

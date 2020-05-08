@@ -48,3 +48,13 @@
 .notHidden {
   display: unset; 
 }
+
+.searchButton {
+  font-size: 2em;
+  color: yellow;
+  background-color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px
+}

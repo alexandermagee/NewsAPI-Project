@@ -1,55 +1,33 @@
 import React from 'react';
 import './DisplayResults.css';
 
-export class DisplayResults extends React.Component {
+export const DisplayResults = props => {
 
-    render() {
-       /* let rawData = this.props.topResults;
-        for(let i=0; i<rawData.length; i++){
-            let extractedInformation = [];
-            extractedInformation.push(
-                rawData[i]["author"],
-                rawData[i]["content"],
-                rawData[i]["source"]["name"],
-                rawData[i]["title"],
-                rawData[i]["url"],
-                rawData[i]["urlToImage"]                  
-                )
-            this.displayedInformation.push(extractedInformation);
-        } */
-        if(this.props.loadedStatus === "not loaded"){
-            return(
-                <h3>Please select your search criteria above</h3>
-                /*
-                <section class="testCardContainer">
-                <article class="testCard">
-                    <h3>Lorum Ipsum</h3>
-                    <p class="testCardAuthor">By Anon</p>
-                    <p><a href="">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</a> </p>
-                </article>
-                </section>
-                */
-            )
-        }else{
-            return (
-                <section className="testCardContainer">{
-            (this.props.topResults).map(item => {
-                return(
-                <article className="testCard">
-                <h3>{item[0]}</h3>
-                {(item[1] === null || item[1] === "") ?
-                <p className="testCardAuthor">By Anon</p> :
-                <p className="testCardAuthor">By {item[1]}</p>
+    return(
+        (props.loadedStatus) === "not loaded" ? 
+                <h3>Please select your search criteria above</h3> :                
+                <section className="testCardContainer"> 
+                {
+                    (props.topResults).map(item => {
+                    return(
+                        <article className="testCard">
+                            <h3>{item[0]}</h3>
+
+                            {
+                            (item[1] === null || item[1] === "") ?
+                            <p className="testCardAuthor">By Anon</p> :
+                            <p className="testCardAuthor">By {item[1]}</p>
+                            }
+
+                            <p>
+                                <a href={item[4]} target="_blank">{item[2]}</a>
+                            </p>
+
+                            <p>{item[3]}</p>
+                        </article>
+                        );
+                    })     
                 }
-                {/*<p>By {item[1]}</p>*/}
-                <p><a href={item[4]}>{item[2]}</a></p>
-                <p>{item[3]}</p>
-                </article>
-                )
-            })
-
-            }</section>
-            )
+                </section>
+            );
         }
-    }
-}
