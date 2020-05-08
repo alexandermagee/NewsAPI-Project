@@ -1,5 +1,5 @@
 import React from 'react';
-import {categories} from './EndpointParameterInfo';
+import {categories} from '../Helpers/EndpointParameterInfo';
 import './CategorySelector.css';
 
 export const CategorySelector = props => {

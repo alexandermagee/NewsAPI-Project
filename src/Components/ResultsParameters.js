@@ -1,5 +1,5 @@
 import React from 'react';
-import {sortParameters,pageSizeIntervals,languages} from './EndpointParameterInfo';
+import {sortParameters,pageSizeIntervals,languages} from '../Helpers/EndpointParameterInfo';
 
 export const ResultsParameters = props => {
 

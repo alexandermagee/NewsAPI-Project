@@ -1,5 +1,5 @@
 import React from 'react';
-import {countryCodes} from './EndpointParameterInfo';
+import {countryCodes} from '../Helpers/EndpointParameterInfo';
 
 const apikey = "apiKey=60b5ca9165374ce1987da329db6a4e4c";
 
