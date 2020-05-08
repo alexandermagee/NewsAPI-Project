@@ -23,6 +23,7 @@ export class AppContainer extends React.Component {
             userSearch: "",
             sortBy: "publishedAt",
             pageSize: 50,
+            language: "en",
             activeSearchType: "top results",
             everythingSearchDisplay: "hidden",
             topNewsSearchDisplay: "hidden",
@@ -75,18 +76,18 @@ export class AppContainer extends React.Component {
             userSearch: newSearch,
             userSearchEncoded: newSearchEncoded
         })
-        console.log(newSearch,newSearchEncoded)
     }
 
     updateResultsParameters = (newParameterType,newParameterValue) => {
         this.setState({
         [newParameterType]: newParameterValue
         })
+        console.log(newParameterValue)
     }
 
     getData = () => {
-        const searchTopNews = (`http://newsapi.org/v2/top-headlines?country=${this.state.activeCountryCode}&category=${this.state.activeCategory}&${apikey}`)
-        const searchAllNews = (`http://newsapi.org/v2/everything?qInTitle=${this.state.userSearchEncoded}&pageSize=${this.state.pageSize}&sortBy=${this.state.sortBy}&${apikey}`);
+        const searchTopNews = (`http://newsapi.org/v2/top-headlines?country=${this.state.activeCountryCode}&category=${this.state.activeCategory}&pageSize=${this.state.pageSize}&${apikey}`)
+        const searchAllNews = (`http://newsapi.org/v2/everything?qInTitle=${this.state.userSearchEncoded}&pageSize=${this.state.pageSize}&sortBy=${this.state.sortBy}&language=${this.state.language}&${apikey}`);
         let currentSearch = null;
         (this.state.activeSearchType === "top results") ? currentSearch=searchTopNews : currentSearch=searchAllNews;
         if(currentSearch){
@@ -95,7 +96,6 @@ export class AppContainer extends React.Component {
             return response.json();
         }).then(result => {
             let rawData = result.articles;
-            console.log(rawData);
             let dataToDisplay = [];
             for(let i=0; i<rawData.length; i++){
                 let extractedInformation = [];
@@ -116,7 +116,6 @@ export class AppContainer extends React.Component {
                 loadedStatus : "loaded",
                 topResults : dataToDisplay
             });
-            console.log(currentSearch+this.state.topResults);
             }
         )
         } 

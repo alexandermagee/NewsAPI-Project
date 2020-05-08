@@ -3,15 +3,6 @@ import './DisplayResults.css';
 
 export class DisplayResults extends React.Component {
 
-    componentDidMount() {
-        console.log(this.props.loadedStatus)
-    }
-
-    componentDidUpdate() {
-        console.log(this.props.loadedStatus);
-        console.log(this.props.topResults);
-    }
-
     render() {
        /* let rawData = this.props.topResults;
         for(let i=0; i<rawData.length; i++){
@@ -41,14 +32,14 @@ export class DisplayResults extends React.Component {
             )
         }else{
             return (
-                <section class="testCardContainer">{
+                <section className="testCardContainer">{
             (this.props.topResults).map(item => {
                 return(
-                <article class="testCard">
+                <article className="testCard">
                 <h3>{item[0]}</h3>
                 {(item[1] === null || item[1] === "") ?
-                <p class="testCardAuthor">By Anon</p> :
-                <p class="testCardAuthor">By {item[1]}</p>
+                <p className="testCardAuthor">By Anon</p> :
+                <p className="testCardAuthor">By {item[1]}</p>
                 }
                 {/*<p>By {item[1]}</p>*/}
                 <p><a href={item[4]}>{item[2]}</a></p>
